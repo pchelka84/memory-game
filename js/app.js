@@ -1,6 +1,13 @@
 /*
  * Create a list that holds all of your cards
  */
+ const ListOfCards = ["fa-diamond", "fa-paper-plane-o", 
+			   "fa-anchor", "fa-bolt", "fa-cube", 
+			   "fa-leaf", "fa-bicycle", "fa-bomb", 
+			   "fa-diamond", "fa-paper-plane-o", 
+			   "fa-anchor", "fa-bolt", 
+			   "fa-cube", "fa-leaf", 
+			   "fa-bicycle", "fa-bomb"];
 
 
 /*
@@ -24,6 +31,16 @@ function shuffle(array) {
 
     return array;
 }
+
+const openCards = [];
+const cards = document.querySelectorAll('.card');
+
+cards.forEach(function(card) {
+	card.addEventListener('click', function(evt) {
+		card.classList.add('open', 'show');
+		console.log('card is clicked');
+	});
+})
 
 
 /*
