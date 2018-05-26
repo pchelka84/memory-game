@@ -10,6 +10,7 @@
 			   "fa-bicycle", "fa-bomb"];
 
 
+const numberOfPairs = ListOfCards.length/2;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -32,16 +33,51 @@ function shuffle(array) {
     return array;
 }
 
-const openCards = [];
+let openedCards = [];
+let matchedCards = [];
 const cards = document.querySelectorAll('.card');
 
+// Open cards on click
 cards.forEach(function(card) {
 	card.addEventListener('click', function(evt) {
-		card.classList.add('open', 'show');
-		console.log('card is clicked');
+
+		// If cards are not opened yet, add .open & .show
+		if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {  
+			
+			card.classList.add('open', 'show')
+			openedCards.push(card);
+
+			// Hide unmatched cards
+			if (openedCards.length == 2) {
+				// Set the dataset property on the openedCards' elements & check if they match
+				// if (openedCards[0].dataset.card == openedCards[1].dataset.card) {
+				// 	console.log(openedCards[0].dataset)
+				// 	openedCards[0].classList.add('match');
+				// 	openedCards[0].classList.remove('open');
+				// 	openedCards[0].classList.remove('close');
+				// 	openedCards[1].classList.add('match');
+				// 	openedCards[1].classList.remove('open');
+				// 	openedCards[1].classList.remove('close');
+ 
+				// 	matchedCards.push(openedCards[0]);
+				// 	matchedCards.push(openedCards[1]);
+				// 	openedCards =[]; 
+
+				// 	finish the game if # of match cards equals number of cards divided by two 
+				// 	if (matchedCards.length == matchedPairs.length) {
+
+				// 	};
+				// } else {
+					setTimeout(function() {
+						openedCards.forEach(function(card) {
+							card.classList.remove('open', 'show');
+						}); 
+				    }, 1000);
+				// }
+			}
+		}
 	});
 })
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
