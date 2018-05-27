@@ -9,14 +9,7 @@
 			   "fa-cube", "fa-leaf", 
 			   "fa-bicycle", "fa-bomb"];
 
-
-const numberOfPairs = ListOfCards.length/2;
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+const numberOfPairs = ListOfCards.length / 2;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -33,48 +26,88 @@ function shuffle(array) {
     return array;
 }
 
-let openedCards = [];
-let matchedCards = [];
+// Generate HTML for the element .card
+function generateCard(card) {
+	return `<li class="card"><i class="fa ${card}" data-card="${card}"></i></li>`;
+};
+
+
+function startGame() {
+	const deck = document.querySelector('.deck');
+	// const movesCounter = document.querySelector('.moves');
+	const cardHTML = shuffle(ListOfCards).map(function(card) {
+		return generateCard(card);
+	});
+	// moves = 0;
+	deck.innerHTML = cardHTML.join('');
+};
+
+startGame();
+
+let cardsOpen = [];
+let cardsMatch = [];
 const cards = document.querySelectorAll('.card');
+
+// Open cards
+function flipCardsToOpen(card) {
+	card.classList.add('open', 'show');  
+    // cardsOpen.push(card); 
+};
+
+// Close cards
+// function flipCardsToClose(card) {
+// 	card.classList.remove('open', 'show');  
+//     // cardsOpen.push(card); 
+// };
+
+// two opened matched cards
+function openedMatched(card) {
+	cardsOpen[0].classList.add('match');
+	cardsOpen[0].classList.remove('open');
+	cardsOpen[0].classList.remove('show');
+	cardsOpen[1].classList.add('match');
+	cardsOpen[1].classList.remove('open');
+	cardsOpen[1].classList.remove('show');
+};
 
 // Open cards on click
 cards.forEach(function(card) {
 	card.addEventListener('click', function(evt) {
 
-		// If cards are not opened yet, add .open & .show
+		// If cards aren't opened yet
 		if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {  
-			
-			card.classList.add('open', 'show')
-			openedCards.push(card);
+			 
+			flipCardsToOpen(event.target);
+			cardsOpen.push(card); 
+		
+			// If two cards are opened
+			if (cardsOpen.length === 2) {
 
-			// Hide unmatched cards
-			if (openedCards.length == 2) {
-				// Set the dataset property on the openedCards' elements & check if they match
-				// if (openedCards[0].dataset.card == openedCards[1].dataset.card) {
-				// 	console.log(openedCards[0].dataset)
-				// 	openedCards[0].classList.add('match');
-				// 	openedCards[0].classList.remove('open');
-				// 	openedCards[0].classList.remove('close');
-				// 	openedCards[1].classList.add('match');
-				// 	openedCards[1].classList.remove('open');
-				// 	openedCards[1].classList.remove('close');
- 
-				// 	matchedCards.push(openedCards[0]);
-				// 	matchedCards.push(openedCards[1]);
-				// 	openedCards =[]; 
+				// If cards match
+				// if (cardsOpen[0].dataset.card == cardsOpen[1].dataset.card) {
+				// if (cardsOpen[0].children[0].className === cardsOpen[1].children[0].className) {
+				// 	console.log(cardsOpen[0].className);
+				// 	openedMatched(event.target);  
+				// 	cardsOpen = [];
 
-				// 	finish the game if # of match cards equals number of cards divided by two 
-				// 	if (matchedCards.length == matchedPairs.length) {
-
-				// 	};
 				// } else {
+
+					// If cards don't match
 					setTimeout(function() {
-						openedCards.forEach(function(card) {
+						cardsOpen.forEach(function(card) { // hide two opened cards
 							card.classList.remove('open', 'show');
 						}); 
-				    }, 1000);
+						cardsOpen = [];
+					}, 1000);
+				}
+
+				// finish the game if # of match cards equals number of cards divided by two 
+				// if (matchedCards.length == matchedPairs.length) {
+
+				// If opened cards do not match close them
+				// } else { 
 				// }
-			}
+			// }
 		}
 	});
 })
