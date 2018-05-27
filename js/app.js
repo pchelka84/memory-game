@@ -26,9 +26,9 @@ function shuffle(array) {
     return array;
 }
 
-// Generate HTML for the element .card
-function generateCard(card) {
-	return `<li class="card"><i class="fa ${card}" data-card="${card}"></i></li>`;
+// Create HTML for each of the cards
+function createCard(card) {
+	return `<li class="card"><i class="fa ${card}"></i></li>`;
 };
 
 
@@ -36,7 +36,7 @@ function startGame() {
 	const deck = document.querySelector('.deck');
 	// const movesCounter = document.querySelector('.moves');
 	const cardHTML = shuffle(ListOfCards).map(function(card) {
-		return generateCard(card);
+		return createCard(card);
 	});
 	// moves = 0;
 	deck.innerHTML = cardHTML.join('');
@@ -78,28 +78,28 @@ cards.forEach(function(card) {
 		if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {  
 			 
 			flipCardsToOpen(event.target);
-			cardsOpen.push(card); 
-		
+			cardsOpen.push(card);  
+
 			// If two cards are opened
-			if (cardsOpen.length === 2) {
-
-				// If cards match
-				// if (cardsOpen[0].dataset.card == cardsOpen[1].dataset.card) {
-				// if (cardsOpen[0].children[0].className === cardsOpen[1].children[0].className) {
-				// 	console.log(cardsOpen[0].className);
-				// 	openedMatched(event.target);  
-				// 	cardsOpen = [];
-
-				// } else {
-
-					// If cards don't match
-					setTimeout(function() {
-						cardsOpen.forEach(function(card) { // hide two opened cards
-							card.classList.remove('open', 'show');
-						}); 
-						cardsOpen = [];
-					}, 1000);
+			if (cardsOpen.length === 2) { 
+ 				if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) { 
+					openedMatched(event.target);  
+				 	cardsOpen = [];
 				}
+			} else {
+				// If cards don't match
+				setTimeout(function() {
+					cardsOpen.forEach(function(card) { // hide two opened cards
+						card.classList.remove('open', 'show');
+					}); 
+					cardsOpen = [];
+				}, 1200);
+			}
+		}
+	});
+})
+
+
 
 				// finish the game if # of match cards equals number of cards divided by two 
 				// if (matchedCards.length == matchedPairs.length) {
@@ -108,9 +108,6 @@ cards.forEach(function(card) {
 				// } else { 
 				// }
 			// }
-		}
-	});
-})
 
 /*
  * set up the event listener for a card. If a card is clicked:
