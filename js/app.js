@@ -8,8 +8,9 @@
 			   "fa-anchor", "fa-bolt", 
 			   "fa-cube", "fa-leaf", 
 			   "fa-bicycle", "fa-bomb"];
-
-const numberOfPairs = ListOfCards.length / 2;
+ 
+let moves = 0;
+const movesCount = document.querySelector('.moves');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -34,11 +35,10 @@ function createCard(card) {
 
 function startGame() {
 	const deck = document.querySelector('.deck');
-	// const movesCounter = document.querySelector('.moves');
 	const cardHTML = shuffle(ListOfCards).map(function(card) {
 		return createCard(card);
 	});
-	// moves = 0;
+	// moves = 0;  
 	deck.innerHTML = cardHTML.join('');
 };
 
@@ -50,8 +50,7 @@ const cards = document.querySelectorAll('.card');
 
 // Open cards
 function flipCardsToOpen(card) {
-	card.classList.add('open', 'show');  
-    // cardsOpen.push(card); 
+	card.classList.add('open', 'show');   
 };
 
 // Close cards
@@ -70,10 +69,12 @@ function openedMatched(card) {
 	cardsOpen[1].classList.remove('show');
 };
 
+function firstCardOpened() {
+
+}
 // Open cards on click
 cards.forEach(function(card) {
 	card.addEventListener('click', function(evt) {
-
 		// If cards aren't opened yet
 		if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {  
 			 
@@ -82,9 +83,12 @@ cards.forEach(function(card) {
 
 			// If two cards are opened
 			if (cardsOpen.length === 2) { 
+
+				// if both cards match
  				if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) { 
 					openedMatched(event.target);  
-				 	cardsOpen = [];
+				 	cardsOpen = []; 
+					movesCounter();
 				}
 			} else {
 				// If cards don't match
@@ -92,13 +96,62 @@ cards.forEach(function(card) {
 					cardsOpen.forEach(function(card) { // hide two opened cards
 						card.classList.remove('open', 'show');
 					}); 
-					cardsOpen = [];
-				}, 1200);
+					cardsOpen = [];  
+				}, 1200);  
+				movesCounter();
 			}
 		}
 	});
-})
+});
 
+// Count moves
+function movesCounter() {
+  moves++;
+  movesCount.innerHTML = moves;  
+  console.log(moves);
+}
+ 
+
+
+// TIMER /////////////////////////////////////////////////////////
+// let timer = document.querySelector('.timer');
+// let seconds = 0;
+// let minutes = 0;
+// let interval;
+
+
+// timer.innerHTML = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+// function setTimer() {
+// 	seconds++;
+// 	if (seconds == 60) {
+// 		seconds = 0;
+// 		minutes++;
+// 	}
+// }
+// function setIntTimer() {
+// 	time = setTimeout(setTimer, 1000)
+// }
+// document.querySelector(".deck").addEventListener("click", function() {
+// 	startTimer()
+// });
+
+//  function startTimer() {     
+//     interval = setInterval(function () { 
+// 	timer.innerHTML = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+//         seconds++;
+//         if (seconds == 60) {
+//             minutes++;
+//             seconds = "0" + 0;
+//         }
+//     }, 1000);
+// };
+// You don't have to created a new function to do the clearInterval. 
+// If you have a function that 'resets' the game you can just 
+// clearInterval(interval) inside that function and it should clear the timer
+// function stopTimer(){
+//   clearInterval(interval)
+// };
+// TIMER /////////////////////////////////////////////////////////
 
 
 				// finish the game if # of match cards equals number of cards divided by two 
