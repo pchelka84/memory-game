@@ -1,20 +1,26 @@
 # Memory Game Project
 
-## Table of Contents
+This memory game is the second project for Udacity's Grow with Google Front-End Web Developer Nanodegree Course, which focuses on mastery of Javascript, HTML and CSS skills.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## How to Play the Game
 
-## Instructions
+To get started, click two of cards on the deck to flip them over and reveal images. If images on the cards match, cards will stay open. Otherwise, they will both flip over. The goal is to find all matches with the highest star rating possible.
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+![Memory game](img/memoryGame.JPG)
 
-To get started, open `js/app.js` and start building out the app's functionality
+The displayed star rating is 3 at the beginning. The rating decreases to 2 stars after 15 incorrect moves, and 1 star after 20 incorrect moves. Each move consists of flipping over any two cards.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+A timer starts when the first card is clicked and stops when all matches are found.
 
-## Contributing
+When all eight matches are found, a pop up window will display the statistic of the game with the option to restart the game.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+![Memory game](img/memoryGameWin.JPG)
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The game can be restarted at any time.
+
+## Dependencies
+
+- [BootStrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+- [Font Awesome](https://fontawesome.com/)
+- [Google Fonts](https://fonts.google.com/)
+- [Animate CSS](https://daneden.github.io/animate.css/)
