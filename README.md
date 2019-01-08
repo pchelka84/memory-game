@@ -18,6 +18,8 @@ When all eight matches are found, a pop up window will display the statistic of 
 
 The game can be restarted at any time.
 
+You can view a live version of the game [here](https://pchelka84.github.io/memory-game/).
+
 ## Dependencies
 
 - [BootStrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
